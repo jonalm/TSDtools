@@ -2,10 +2,6 @@ import pandas as pd
 import numpy as np
 from os.path import join as joinpath
 from os.path import dirname
-try:
-    __file__
-except NameError:
-    __file__ = ""
 
 TSDINFOFILE = "/tsd/p33/data/durable/LRP Genetics Database/LRP_GENETICS-25.04.16-I_deCODE_clean.txt"    
 MOCKINFOFILE = joinpath(dirname(__file__), "../mockdata/info")
