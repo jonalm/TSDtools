@@ -1,4 +1,5 @@
 from os.path import isfile
+import cPickle as pickle
 import argparse
 import gzip
 
@@ -6,8 +7,9 @@ import gzip
 parser = argparse.ArgumentParser()
 parser.add_argument("files", metavar="<file name>", type=str, nargs="+",
                     help="action done on each filename")
-
 parser.add_argument("-v", "--verbosity", action="store_true",
+                    help="increase output verbosity")
+parser.add_argument("-d", "--verbosity", action="store_true",
                     help="increase output verbosity")
 args = parser.parse_args()
 

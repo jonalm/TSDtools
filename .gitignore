@@ -1,6 +1,7 @@
 *.DS_Store
 # too large to store:
-data.bed
-snpid.pickle
 *.pyc
 scratch/
+SNPid/raw/*
+SNPid/2M/*
+SNPid/9M/*
