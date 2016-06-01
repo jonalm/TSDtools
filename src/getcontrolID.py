@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pandas as pd
 import numpy as np
 from os.path import join as joinpath
@@ -23,5 +24,7 @@ def getcontrolID(fin=MOCKINFOFILE):
     return set(df.loc[df["Diagnose"] == "CON"]["PN"])
 
 if __name__=="__main__":
-    for deCODEID in getcontrolID():
-        print deCODEID
+    control = getcontrolID()
+    with open("mockcontrols", "w") as fout:
+        for c in control:
+            print(c, file=fout)

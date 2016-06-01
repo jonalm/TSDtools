@@ -1,4 +1,0 @@
-25.05.16: data.bed is obtained from Francesco (too large to fit in git),
-includes hg19 chromosome numbers (col 0), basepair numbers (col 2) and rs
-numbers (col 3), for the 2M selection (i.e. the 2558411 SNPs used in first
-gen. cond/conj fdr)
