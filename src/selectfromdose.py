@@ -3,6 +3,7 @@ from os.path import isfile
 import numpy as np
 import argparse
 import datetime
+import time
 import gzip
 import os.path
 
@@ -64,16 +65,27 @@ if __name__ == "__main__":
     else:
         raise Exception("Either all or none of file name inputs need to end with 'gz'")
 
+    logprint("\nloading SNPid...", logfn)
+    start = time.time()
     selected_SNP = load_set(args.snpids)
-    selected_subjects = load_set(args.subjects)
+    logprint("done in {} s".format(time.time() - start), logfn)
 
+    logprint("\nloading subjects...", logfn)
+    start = time.time()
+    selected_subjects = load_set(args.subjects)
+    logprint("done in {} s".format(time.time() - start), logfn)
+    
     logprint("", logfn)
     logprint("{}\tcandidate SNPid in file    : {}".format(len(selected_SNP), args.snpids), logfn)
     logprint("{}\tcandidate subjects in file : {}".format(len(selected_subjects), args.subjects), logfn)
 
     for finame in args.files:
-        foname = os.path.join(args.out_dir, "subset_{}".format(os.path.basename(finame)))
 
+        foname = os.path.join(args.out_dir, "subset_{}".format(os.path.basename(finame)))
+        logprint("\nreading file  : {}".format(finame), logfn)
+        logprint(  "write to file : {}".format(foname), logfn)
+        start = time.time()
+        
         with gzcompatible_open(finame,"r") as fi, gzcompatible_open(foname,"w") as fo:
             snp_in_fi = set()
             written_lines = 0
@@ -92,8 +104,8 @@ if __name__ == "__main__":
                     snp_in_fi.add(snp)
                     written_lines += 1
 
-        logprint("\nin file \t{}:".format(finame), logfn)
-        logprint("write to\t{}:".format(foname), logfn)
+
+        logprint("done in {} s".format(time.time() - start), logfn)
         logprint("found {} snps".format(len(snp_in_fi)), logfn)
         logprint("wrote {} lines".format(written_lines), logfn)
         logprint("found {} subjects".format(len(subjects_in_fi)), logfn)

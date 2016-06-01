@@ -7,7 +7,7 @@ from os.path import dirname
 TSDINFOFILE = "/tsd/p33/data/durable/LRP Genetics Database/LRP_GENETICS-25.04.16-I_deCODE_clean.txt"    
 MOCKINFOFILE = joinpath(dirname(__file__), "../mockdata/info")
 
-def getcontrolID(fin=MOCKINFOFILE):
+def getcontrolID(fin):
     cols = ["PN", "Diagnose"]
     df = pd.read_csv(fin, sep="\t", usecols=cols)
 
@@ -24,7 +24,7 @@ def getcontrolID(fin=MOCKINFOFILE):
     return set(df.loc[df["Diagnose"] == "CON"]["PN"])
 
 if __name__=="__main__":
-    control = getcontrolID()
-    with open("mockcontrols", "w") as fout:
+    control = getcontrolID(TSDINFOFILE)
+    with open("controls", "w") as fout:
         for c in control:
             print(c, file=fout)
