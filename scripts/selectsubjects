@@ -1,6 +1,11 @@
 #!/usr/bin/awk -f
 BEGIN {
     FS="\t"
+    if (ARGV[1]=="test")
+    {test = 1; delete ARGV[1]}
+    else
+    {test = 0;}
+	
 }
 NR==1 {
     for (i=1; i<NF; i++){
@@ -16,9 +21,13 @@ NR==1 {
 NR>1 {
     if ( $diagcol~/Con|CON|Kontroll|Normal control/ )
        {
-           print $pncol 
+	   if (test==1)
+	       print $diagcol "\t=>\t" $pncol 
+	   else
+	       print $pncol 
        }
        else {
-        #print $diagcol;
+	   if (test==1)
+	       print $diagcol "\t=>\tignored"
     }
 }
