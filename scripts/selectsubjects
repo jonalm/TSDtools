@@ -1,0 +1,24 @@
+#!/usr/bin/awk -f
+BEGIN {
+    FS="\t"
+}
+NR==1 {
+    for (i=1; i<NF; i++){
+            if($i=="PN"){
+                  pncol=i;
+              }
+
+              if($i=="Diagnose"){
+                    diagcol=i;
+                }
+        }
+}
+NR>1 {
+    if ( $diagcol~/Con|CON|Kontroll|Normal control/ )
+       {
+           print $pncol 
+       }
+       else {
+        #print $diagcol;
+    }
+}
